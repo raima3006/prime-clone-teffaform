@@ -1,5 +1,34 @@
-# Ignore Terraform cache and provider binaries
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Ignore Terraform crash logs
+crash.log
+*.crash.log
+
+# Ignore Terraform variables files (avoid exposing credentials)
+terraform.tfvars
+terraform.tfvars.json
+
+# Ignore Terraform lock files
+.terraform.lock.hcl
+
+# Ignore Terraform provider cache directory
 .terraform/
-terraform.tfstate
-terraform.tfstate.backup
-*.tfvars
+
+# Ignore SSH private key files (security risk)
+*.pem
+*.key
+
+# Ignore Jenkins workspace and pipeline logs
+workspace/
+*.log
+.jenkins/
+
+# Ignore Node.js dependencies (if applicable)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Ignore Docker build cache
+docker-compose.override.yml
