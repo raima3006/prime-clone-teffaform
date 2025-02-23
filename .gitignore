@@ -32,3 +32,4 @@ package-lock.json
 
 # Ignore Docker build cache
 docker-compose.override.yml
+.terraform/
