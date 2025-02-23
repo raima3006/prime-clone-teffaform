@@ -1,0 +1,20 @@
+#Use Node.js Alpine as base image
+FROM node:Alpine
+
+#Create and set the working directory inside the container
+WORKDIR /app
+
+#Copu package.json and package-lock.json to the working directory
+COPY package.json package-lock.json /app/
+
+#Install dependencies
+RUN nmp install
+
+#Copy the entire caodebase to the working directory
+COPY . /app/ 
+
+#Expose the port your container app
+EXPOSE 3000
+
+#Define the command to start your application (replace "start" with the actual command to start your app)
+CMD [ "nmp", "start" ]
