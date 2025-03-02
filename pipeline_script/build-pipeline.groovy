@@ -8,7 +8,7 @@ pipeline
         nodejs 'NodeJS'
     }
 
-    enviroment
+    environment
     {
         SCANNER_HOME = tool 'SonarQube Scanner'
     }
@@ -36,9 +36,12 @@ pipeline
                 withSonarQubeEnv ('sonar-server')
                 {
                     sh"""
-                        $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=amazon-prime \ 
-                        -Dsonar.projectKey=amazon-prime 
+                        ${SCANNER_HOME}/bin/sonar-scanner 
+                        -Dsonar.projectKey=amazon-prime
+                        -Dsonar.projectName=amazon-prime
+                        -Dsonar.sources=.
+                        -Dsonar.host.url=http://localhost:9000
+                        -Dsonar.login=your-sonarqube-token 
                     """
                 }
             }
@@ -90,7 +93,7 @@ pipeline
             }
         }
 
-        stage('8. Loging to ECR & tag image') 
+        stage('8. Logging to ECR & tag image') 
         {
             steps 
             {
