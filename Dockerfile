@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json /app/
 
 #Install dependencies
-RUN nmp install
+RUN npm install
 
 #Copy the entire caodebase to the working directory
 COPY . /app/ 
