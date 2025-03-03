@@ -36,12 +36,12 @@ pipeline
                 withSonarQubeEnv ('sonar-server')
                 {
                     sh"""
-                        ${SCANNER_HOME}/bin/sonar-scanner 
-                        -Dsonar.projectKey=amazon-prime
-                        -Dsonar.projectName=amazon-prime
-                        -Dsonar.sources=.
-                        -Dsonar.host.url=http://localhost:9000
-                        -Dsonar.login=your-sonarqube-token 
+                        ${SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey=amazon-prime \
+                        -Dsonar.projectName=amazon-prime \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://13.201.42.132:9000 \
+                        -Dsonar.login=squ_96dfce6ac94f434453cedf09217cb1e059fcc8da
                     """
                 }
             }
