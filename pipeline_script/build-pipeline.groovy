@@ -105,7 +105,7 @@ pipeline
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
                 {
-                    sh"""
+                    sh """
                         echo "DEBUG: AWS_ACCESS_KEY is set to: $AWS_ACCESS_KEY"
                         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com         
                         docker tag ${params.ECR_REPO_NAME} ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
@@ -119,9 +119,10 @@ pipeline
         {
             steps 
             {
-                withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
+                withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
+                string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
                 {
-                    sh"""
+                    sh """
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
                     """
