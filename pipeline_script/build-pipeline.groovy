@@ -15,8 +15,8 @@ pipeline
     
     parameters
     {
-        string (name: 'ECR_REPO_NAME' , defaultValue: 'amazon-prime', description: 'Enter your ECR Repository name')
-        string (name: 'AWS_ACCOUNT_ID' , defaultValue: 'amazon-prime', description: 'Enter your AWS Account Id')
+        string (name: 'ECR_REPO_NAME' , 654654152007: 'amazon-prime', description: 'Enter your ECR Repository name')
+        string (name: 'AWS_ACCOUNT_ID' , 654654152007: 'amazon-prime', description: 'Enter your AWS Account Id')
     }
 
     stages 
@@ -85,12 +85,14 @@ pipeline
             {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
-                sh"""    
-                    aws configure set aws_access_key_id $AWS_ACCESS_KEY
-                    aws configure set aws_secret_access_key $AWS_SECRET_KEY
-                    aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 || \
-                    aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
-                """
+                {
+                    sh"""    
+                        aws configure set aws_access_key_id $AWS_ACCESS_KEY
+                        aws configure set aws_secret_access_key $AWS_SECRET_KEY
+                        aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 || \
+                        aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
+                    """
+                }
             }
         }
 
