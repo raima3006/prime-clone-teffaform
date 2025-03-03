@@ -15,8 +15,8 @@ pipeline
     
     parameters
     {
-        string (name: 'ECR_REPO_NAME' , 654654152007: 'amazon-prime', description: 'Enter your ECR Repository name')
-        string (name: 'AWS_ACCOUNT_ID' , 654654152007: 'amazon-prime', description: 'Enter your AWS Account Id')
+        string (name: 'ECR_REPO_NAME' , defaultValue: '654654152007', description: 'Enter your ECR Repository name')
+        string (name: 'AWS_ACCOUNT_ID' , defaultValue: '654654152007', description: 'Enter your AWS Account Id')
     }
 
     stages 
