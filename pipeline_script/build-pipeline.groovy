@@ -33,7 +33,7 @@ pipeline
         {
             steps 
             {
-                withSonarQubeEnv ('sonar-server')
+                withSonarQubeEnv('sonar-server')
                 {
                     sh"""
                         ${SCANNER_HOME}/bin/sonar-scanner \
@@ -118,10 +118,12 @@ pipeline
             steps 
             {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
-                sh"""
-                    docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
-                    docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
-                """
+                {
+                    sh"""
+                        docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
+                        docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
+                    """
+                }
             }
         }
 
