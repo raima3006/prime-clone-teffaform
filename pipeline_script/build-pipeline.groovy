@@ -35,14 +35,16 @@ pipeline
             {
                 withSonarQubeEnv('sonar-server')
                 {
-                    sh"""
-                        ${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=amazon-prime \
-                        -Dsonar.projectName=amazon-prime \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://13.201.42.132:9000 \
-                        -Dsonar.login=$SONAR_TOKEN
-                    """
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) 
+                    {
+                        sh"""
+                            ${SCANNER_HOME}/bin/sonar-scanner \
+                            -Dsonar.projectKey=amazon-prime \
+                            -Dsonar.projectName=amazon-prime \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=http://13.201.42.132:9000 \
+                            -Dsonar.login=$SONAR_TOKEN
+                    }    """
                 }
             }
         }
