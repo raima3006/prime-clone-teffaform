@@ -124,7 +124,7 @@ pipeline
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
                 {
-                    sh """
+                    sh """13.201.42.132
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
                     """
@@ -145,4 +145,4 @@ pipeline
     }
 }
     
-
+}
