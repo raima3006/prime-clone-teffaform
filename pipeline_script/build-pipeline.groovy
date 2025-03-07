@@ -29,6 +29,7 @@ pipeline
             }
         }
         
+    
         stage('2. Sonarqube Analysis') 
         {
             steps 
@@ -44,7 +45,8 @@ pipeline
                             -Dsonar.sources=. \
                             -Dsonar.host.url=http://13.201.42.132:9000 \
                             -Dsonar.login=$SONAR_TOKEN
-                    }    """
+                        """
+                    }    
                 }
             }
         }
@@ -124,7 +126,8 @@ pipeline
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
                 {
-                    sh """13.201.42.132
+                    sh
+                    """
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
                         docker push ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
                     """
@@ -143,6 +146,4 @@ pipeline
             }
         }
     }
-}
-    
 }
