@@ -91,13 +91,18 @@ pipeline
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
                 {
                     sh"""  
-                        export PATH=$PATH:/usr/local/bin 
-                        echo "DEBUG: AWS_ACCESS_KEY is set to: $AWS_ACCESS_KEY"
-                        echo "DEBUG: AWS_SECRET_KEY is set to: $AWS_SECRET_KEY" 
-                        /usr/local/bin/aws configure set aws_access_key_id $AWS_ACCESS_KEY
-                        /usr/local/bin/aws configure set aws_secret_access_key $AWS_SECRET_KEY
-                        /usr/local/bin/aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 || \
-                        /usr/local/bin/aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
+                        export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin  
+                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
+                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
+                        export AWS_DEFAULT_REGION=ap-south-1
+
+                        # Check if the ECR repository exists
+                        if ! /usr/local/bin/aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 > /dev/null 2>&1; then
+                            echo "ECR repository ${params.ECR_REPO_NAME} does not exist. Creating..."
+                            /usr/local/bin/aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
+                        else
+                            echo "ECR repository ${params.ECR_REPO_NAME} already exists."
+                        fi
                     """
                 }
             }
