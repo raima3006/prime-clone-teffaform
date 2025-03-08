@@ -92,7 +92,7 @@ pipeline
                 string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),]) 
                 {
                     sh"""  
-                        export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin  
+                        export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin  
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
                         export AWS_DEFAULT_REGION=ap-south-1
