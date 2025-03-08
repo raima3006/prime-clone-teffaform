@@ -88,7 +88,8 @@ pipeline
             steps 
             {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY'), 
-                string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY')]) 
+                string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY'),
+                string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN'),]) 
                 {
                     sh"""  
                         export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin  
