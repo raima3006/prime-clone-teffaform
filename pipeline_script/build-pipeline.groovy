@@ -91,16 +91,17 @@ pipeline
                 string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_KEY'),
                 string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN'),]) 
                 {
-                    sh"""  
-                        export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin  
+                    sh"""
+                        export PATH=$PATH:/usr/local/bin  # Ensure AWS CLI is in the PATH
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
+                        export SONAR_TOKEN=$SONAR_TOKEN
                         export AWS_DEFAULT_REGION=ap-south-1
 
                         # Check if the ECR repository exists
-                        if ! /usr/local/bin/aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 > /dev/null 2>&1; then
+                        if ! aws ecr describe-repositories --repository-names ${params.ECR_REPO_NAME} --region ap-south-1 > /dev/null 2>&1; then
                             echo "ECR repository ${params.ECR_REPO_NAME} does not exist. Creating..."
-                            /usr/local/bin/aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
+                            aws ecr create-repository --repository-name ${params.ECR_REPO_NAME} --region ap-south-1
                         else
                             echo "ECR repository ${params.ECR_REPO_NAME} already exists."
                         fi
