@@ -43,7 +43,7 @@ pipeline
                             -Dsonar.projectKey=amazon-prime \
                             -Dsonar.projectName=amazon-prime \
                             -Dsonar.sources=. \
-                            -Dsonar.host.url=http://13.201.42.132:9000 \
+                            -Dsonar.host.url=http://65.1.109.226:9000 \
                             -Dsonar.login=$SONAR_TOKEN
                         """
                     }    
@@ -93,6 +93,9 @@ pipeline
                 {
                     sh"""
                         export PATH=$PATH:/usr/local/bin  # Ensure AWS CLI is in the PATH
+                        which aws || echo "AWS CLI not found"
+                        aws --version || echo "AWS CLI not installed"
+
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
                         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
                         export SONAR_TOKEN=$SONAR_TOKEN
