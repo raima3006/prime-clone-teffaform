@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "5.87.0"
     }
   }
@@ -17,14 +17,14 @@ resource "aws_security_group" "my-sg" {
   description = "JEnkins Server Ports"
 
   # Port 22 is required for SSH Access
-  ingress{
-    description = "SSH Port"            # Describes the rule for SSH access
-    from_port = 22                      # Starting port (22 for SSH)
-    to_port = 22                        # Ending port (22 for SSH)
-    protocol = "tcp"                    # Starting port (22 for SSH)
-    cidr_blocks = ["0.0.0.0/0"]         ## Allows access from anywhere (public access)
+  ingress {
+    description = "SSH Port"    # Describes the rule for SSH access
+    from_port   = 22            # Starting port (22 for SSH)
+    to_port     = 22            # Ending port (22 for SSH)
+    protocol    = "tcp"         # Starting port (22 for SSH)
+    cidr_blocks = ["0.0.0.0/0"] ## Allows access from anywhere (public access)
   }
-  
+
   # HTTP (Port 80) - Allows access to web servers
   ingress {
     description = "Allow HTTP traffic"
@@ -43,12 +43,21 @@ resource "aws_security_group" "my-sg" {
     cidr_blocks = ["0.0.0.0/0"] # Open to the public (any IP)
   }
 
+  # Port 5432 is required for Postgres
+  ingress {
+    description = "Allow PostgreSQL traffic"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Replace with your machine's IP
+  }
+
   #Port 2379-2380 is required for etcd-cluster
   ingress {
     description = "Allow etc-cluster Port"
-    from_port = 2379
-    to_port = 2380
-    protocol = "tcp"
+    from_port   = 2379
+    to_port     = 2380
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -71,6 +80,7 @@ resource "aws_security_group" "my-sg" {
   }
 
   # Jenkins (Port 8080) - CI/CD automation platform
+  #ingress {aws iam list-policies --scope Local
   ingress {
     description = "Allow Jenkins traffic"
     from_port   = 8080
@@ -81,77 +91,79 @@ resource "aws_security_group" "my-sg" {
 
   # Port 9000 is required for SonarQube
   ingress {
-    description     = "SonarQube Port"
-    from_port       = 9000
-    to_port         = 9000
-    protocol        = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }  
+    description = "SonarQube Port"
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["65.1.109.226/32"]
+  }
 
   # Port 9090 is required for Prometheus
   ingress {
-    description     = "Prometheus Port"
-    from_port       = 9090
-    to_port         = 9090
-    protocol        = "tcp"
+    description = "Prometheus Port"
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
 
   # Port 9100 is required for Prometheus metrics server
   ingress {
-    description     = "Prometheus Metrics Port"
-    from_port       = 9100
-    to_port         = 9100
-    protocol        = "tcp"
+    description = "Prometheus Metrics Port"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  } 
+  }
 
   # Port 10250-10260 is required for K8s
   ingress {
-    description     = "K8s Ports"
-    from_port       = 10250
-    to_port         = 10260
-    protocol        = "tcp"
+    description = "K8s Ports"
+    from_port   = 10250
+    to_port     = 10260
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
 
   # Port 30000-32767 is required for NodePort
   ingress {
-    description     = "K8s NodePort"
-    from_port       = 30000
-    to_port         = 32767
-    protocol        = "tcp"
+    description = "K8s NodePort"
+    from_port   = 30000
+    to_port     = 32767
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }  
+  }
 
   # Define outbound rules to allow all
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"       # Allow all protocols (TCP, UDP, ICMP, etc.)
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # Allow all protocols (TCP, UDP, ICMP, etc.)
     cidr_blocks = ["0.0.0.0/0"]
+
+
   }
 }
 
 # STEP2: CREAT EC2 USING PEM & SG
 resource "aws_instance" "my-ec2" {
-  ami = var.ami 
-  instance_type = var.instance_type
-  key_name      = var.key_name        
-  vpc_security_group_ids = [aws_security_group.my-sg.id]
-  depends_on = [aws_security_group.my-sg]
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  vpc_security_group_ids      = [aws_security_group.my-sg.id]
+  depends_on                  = [aws_security_group.my-sg]
   associate_public_ip_address = true
-  
+
   root_block_device {
     volume_size = var.volume_size
   }
-  
+
   tags = {
     Name = var.server_name
   }
 
-    # USING REMOTE-EXEC PROVISIONER TO INSTALL PACKAGES
-    provisioner "remote-exec" {
+  # USING REMOTE-EXEC PROVISIONER TO INSTALL PACKAGES
+  provisioner "remote-exec" {
     # ESTABLISHING SSH CONNECTION WITH EC2
     connection {
       type        = "ssh"
@@ -219,7 +231,7 @@ resource "aws_instance" "my-ec2" {
       "VERSION=$(curl -L -s https://raw.githubusercontent.com/argoproj/argo-cd/stable/VERSION)",
       "curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/v$VERSION/argocd-linux-amd64",
       "sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd",
-      "rm argocd-linux-amd64", 
+      "rm argocd-linux-amd64",
 
       # Install Java 17
       # Ref: https://www.rosehosting.com/blog/how-to-install-java-17-lts-on-ubuntu-20-04/
@@ -251,17 +263,17 @@ resource "aws_instance" "my-ec2" {
 
 # STEP3: GET EC2 USER NAME AND PUBLIC IP
 output "SERVER-SSH-ACCESS" {
-  value       = "ubuntu@${aws_instance.my-ec2.public_ip}"
+  value = "ubuntu@${aws_instance.my-ec2.public_ip}"
 }
 
 # STEP4: GET EC2 PUBLIC IP  (for external access)
 output "PUBLIC-IP" {
-  value = "${aws_instance.my-ec2.public_ip}"
+  value = aws_instance.my-ec2.public_ip
 }
 
 # STEP5: GET EC2 PRIVATE IP  
 output "PRIVATE-IP" {
-  value = "${aws_instance.my-ec2.private_ip}"
+  value = aws_instance.my-ec2.private_ip
 }
 
 

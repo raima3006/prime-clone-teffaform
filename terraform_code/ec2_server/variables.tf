@@ -8,6 +8,7 @@ variable "ami" {
 variable "instance_type" {
   description = "Instance Type"
   type        = string
+
 }
 
 variable "key_name" {
@@ -24,7 +25,7 @@ variable "volume_size" {
 variable "region_name" {
   description = "AWS Region"
   type        = string
-  default     = "ap-south-1" 
+  default     = "ap-south-1"
 }
 
 variable "server_name" {
