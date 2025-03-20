@@ -95,7 +95,7 @@ resource "aws_security_group" "my-sg" {
     from_port   = 9000
     to_port     = 9000
     protocol    = "tcp"
-    cidr_blocks = ["65.1.109.226/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # Port 9090 is required for Prometheus
@@ -145,7 +145,7 @@ resource "aws_security_group" "my-sg" {
   }
 }
 
-# STEP2: CREAT EC2 USING PEM & SG
+#STEP2: CREAT EC2 USING PEM & SG
 resource "aws_instance" "my-ec2" {
   ami                         = var.ami
   instance_type               = var.instance_type
@@ -161,8 +161,9 @@ resource "aws_instance" "my-ec2" {
   tags = {
     Name = var.server_name
   }
+ 
 
-  # USING REMOTE-EXEC PROVISIONER TO INSTALL PACKAGES
+# USING REMOTE-EXEC PROVISIONER TO INSTALL PACKAGES
   provisioner "remote-exec" {
     # ESTABLISHING SSH CONNECTION WITH EC2
     connection {
@@ -261,7 +262,8 @@ resource "aws_instance" "my-ec2" {
   }
 }
 
-# STEP3: GET EC2 USER NAME AND PUBLIC IP
+
+#STEP3: GET EC2 USER NAME AND PUBLIC IP
 output "SERVER-SSH-ACCESS" {
   value = "ubuntu@${aws_instance.my-ec2.public_ip}"
 }

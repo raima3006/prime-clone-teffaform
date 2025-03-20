@@ -43,7 +43,7 @@ pipeline
                             -Dsonar.projectKey=amazon-prime \
                             -Dsonar.projectName=amazon-prime \
                             -Dsonar.sources=. \
-                            -Dsonar.host.url=http://65.1.109.226:9000 \
+                            -Dsonar.host.url=http://15.206.211.84:8080\
                             -Dsonar.login=$SONAR_TOKEN
                         """
                     }    
