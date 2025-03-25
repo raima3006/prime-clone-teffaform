@@ -36,17 +36,17 @@ pipeline
             {
                 withSonarQubeEnv('sonar-server')
                 {
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) 
+                    withSonarQubeEnv('sonar-server') 
                     {
-                        sh"""
-                            ${SCANNER_HOME}/bin/sonar-scanner \
-                            -Dsonar.projectKey=amazon-prime \
-                            -Dsonar.projectName=amazon-prime \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=http://65.0.85.21:8080\
-                            -Dsonar.login=$SONAR_TOKEN
+                    sh """
+                        /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner \
+                        -Dsonar.projectKey=amazon-prime \
+                        -Dsonar.projectName=amazon-prime \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://65.0.85.21:9000 \
+                        -Dsonar.login=SONARQUBE_TOKEN
                         """
-                    }    
+                    }
                 }
             }
         }
