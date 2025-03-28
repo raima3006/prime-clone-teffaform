@@ -23,13 +23,14 @@ pipeline
     {
         stage('1. Git Checkout') 
         {
-            steps 
+            steps
             {
+                deleteDir()  // This ensures a fresh start
                 git branch: 'main', url: 'https://github.com/raima3006/prime-clone-teffaform.git'
+                sh 'ls -la'  // Debugging step
             }
         }
-        
-    
+       
         stage('2. Sonarqube Analysis') 
         {
             steps 
@@ -52,7 +53,7 @@ pipeline
         {
             steps 
             {
-                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
             }
         }
 
