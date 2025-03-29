@@ -38,7 +38,8 @@ pipeline
                 withSonarQubeEnv('sonar-server') 
                 {
                     sh"""
-                        /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner \
+                       /* /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner \  */
+                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=amazon-prime \
                         -Dsonar.projectName=amazon-prime \
                         -Dsonar.sources=. \
@@ -108,7 +109,7 @@ pipeline
                 {
                     sh"""
                         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com  //you can also use direct accoutnt id rethar {params.AWS_ACCOUNT_ID}
-                        docker tag ${params.ECR_REPO_NAME} ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:${BUILD_NUMBER}
+                        docker tag ${params.ECR_REPO_NAME} ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:$BUILD_NUMBER
                         docker tag ${params.ECR_REPO_NAME} ${params.AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/${params.ECR_REPO_NAME}:latest
                     """
                 }
