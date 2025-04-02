@@ -11,6 +11,7 @@ pipeline
     environment
     {
         SCANNER_HOME = tool 'SonarQube Scanner'
+        PROJECT_DIR = 'projectbyme/amazon-prime-clone'
     }
     
     parameters
@@ -37,14 +38,15 @@ pipeline
             {
                 withSonarQubeEnv('sonar-server') 
                 {
-                    sh"""
-                       
+                    sh """
                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=amazon-prime \
                         -Dsonar.projectName=amazon-prime \
-                        -Dsonar.sources=. \
+                        -Dsonar.sources=${env.PROJECT_DIR} \
                         -Dsonar.host.url=http://65.0.85.21:9000 \
-                        -Dsonar.login=squ_8855ff3d32a4a6c2d206571eb1b67cf800cf4cf7
+                        -Dsonar.login=squ_8855ff3d32a4a6c2d206571eb1b67cf800cf4cf7 \
+                        -Dsonar.javascript.lcov.reportPaths=${env.PROJECT_DIR}/coverage/lcov.info \
+                        -Dsonar.coverage.exclusions=**/test/**,**/node_modules/**
                     """
                 }
             }
@@ -62,7 +64,10 @@ pipeline
         {
             steps 
             {
-                sh "npm install"
+                dir(env.PROJECT_DIR) 
+                {
+                    sh "npm install"
+                }
             }
         }
 
@@ -70,7 +75,10 @@ pipeline
         {
             steps 
             {
-                sh "trivy fs . > trivy-scan-results.txt"
+                dir(env.PROJECT_DIR) 
+                {
+                    sh "trivy fs --security-checks vuln,config . > trivy-scan-results.txt"
+                }
             }
         }
 
@@ -78,7 +86,14 @@ pipeline
         {
             steps 
             {
-                sh "docker build -t ${params.ECR_REPO_NAME} ."
+                dir(env.PROJECT_DIR) 
+                {
+                    sh"""
+                        docker build \
+                            -t ${params.ECR_REPO_NAME} \
+                            --build-arg BUILD_NUMBER=$BUILD_NUMBER \
+                    """
+                }
             }
         }
 

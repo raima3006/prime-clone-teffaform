@@ -5,8 +5,8 @@ FROM node:alpine
 #Create and set the working directory inside the container
 WORKDIR /app
 
-#Copu package.json and package-lock.json to the working directory
-COPY package.json package-lock.json /app/
+# Copy package files first for better layer caching
+COPY amazon-prime-clone/package.json amazon-prime-clone/package-lock.json ./
 
 #Install dependencies
 RUN npm install
