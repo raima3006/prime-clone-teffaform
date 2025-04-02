@@ -1,0 +1,3 @@
+[submodule "amazon-prime-clone"]
+	path = amazon-prime-clone
+	url = https://github.com/your-username/Amazon-Prime-Clone.git
