@@ -67,7 +67,7 @@ row__postersData:hover .dataHover {
   flex-direction: column;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
   transition: 0.3s ease-in-out;
-  border-radius: 15px;
+  /* border-radius: 15px; */
  
 }
 .container .card:hover {
@@ -89,7 +89,7 @@ row__postersData:hover .dataHover {
 .image img {
   border-radius: 15px;
   height: 50% !important;
-  border-radius:10px;
+  /* border-radius:10px; */
   border: 5px solid red;
 }
 h2 {
