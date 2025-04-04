@@ -123,7 +123,7 @@
     background: #ffffff;
     border: 1px solid #f3f3f3;
     box-sizing: border-box;
-    #border: 1px solid #f3f3f3;
+    /* border: 1px solid #f3f3f3; */
     box-shadow: 0px 2px 4px 0px #00000040;
     font-family: 'Roboto',sans-serif;
 }
