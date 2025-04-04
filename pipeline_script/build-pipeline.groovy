@@ -46,11 +46,10 @@ pipeline
                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=amazon-prime \
                         -Dsonar.projectName=amazon-prime \
-                        -Dsonar.sources=${env.PROJECT_DIR} \
+                        -Dsonar.sources=. \
                         -Dsonar.host.url=http://65.0.85.21:9000 \
                         -Dsonar.login=squ_8855ff3d32a4a6c2d206571eb1b67cf800cf4cf7 \
-                        -Dsonar.javascript.lcov.reportPaths=${env.PROJECT_DIR}/coverage/lcov.info \
-                        -Dsonar.coverage.exclusions=**/test/**,**/node_modules/**
+                        -Dsonar.exclusions=**/node_modules/**,**/test/** 
                     """
                 }
             }
