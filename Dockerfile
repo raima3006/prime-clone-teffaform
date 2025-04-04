@@ -6,7 +6,7 @@ FROM node:alpine
 WORKDIR /app
 
 # Copy package files first for better layer caching
-COPY amazon-prime-clone/package.json amazon-prime-clone/package-lock.json ./
+COPY package.json package-lock.json ./
 
 #Install dependencies
 RUN npm install

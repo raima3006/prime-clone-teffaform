@@ -12,6 +12,7 @@ pipeline
     {
         SCANNER_HOME = tool 'SonarQube Scanner'
         PROJECT_DIR = 'projectbyme/amazon-prime-clone'
+        APP_REPO = 'https://github.com/icyflame21/Amazon-Prime-Clone.git'
     }
     
     parameters
@@ -28,6 +29,9 @@ pipeline
             {
                 deleteDir()  // This ensures a fresh start
                 git branch: 'main', url: 'https://github.com/raima3006/prime-clone-teffaform.git'
+                sh """
+                    git clone ${env.APP_REPO} ${env.PROJECT_DIR}
+                """
                 sh 'ls -la'  // Debugging step
             }
         }
@@ -66,7 +70,7 @@ pipeline
             {
                 dir(env.PROJECT_DIR) 
                 {
-                    sh "npm install"
+                    sh "npm install --legacy-peer-deps"
                 }
             }
         }
@@ -86,14 +90,14 @@ pipeline
         {
             steps 
             {
-                dir(env.PROJECT_DIR) 
-                {
-                    sh"""
-                        docker build \
-                            -t ${params.ECR_REPO_NAME} \
-                            --build-arg BUILD_NUMBER=$BUILD_NUMBER \
-                    """
-                }
+                sh"""
+                    cp Dockerfile ${WORKSPACE}/${env.PROJECT_DIR}/
+                    cd ${WORKSPACE}/${env.PROJECT_DIR} && \
+                    docker build \
+                        -t ${params.ECR_REPO_NAME} \
+                        --build-arg BUILD_NUMBER=${BUILD_NUMBER} \
+                        -f Dockerfile .
+                """
             }
         }
 
