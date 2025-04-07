@@ -2,7 +2,8 @@ import { AllRoutes } from "./Components/Routes/AllRoutes";
 import { useSelector } from "react-redux";
 
 function App() {
-  // trying adding redux here because
+  // Example of using Redux state
+  const someState = useSelector(state => state.someValue);
 
   return (
     <>
