@@ -1,6 +1,6 @@
 import React from "react";
-import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import "./Styles/NavbarAfterLogin.css";
 import DropdownNav from "./DropdownNav";
