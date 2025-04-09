@@ -35,8 +35,6 @@ pipeline
                 sh 'ls -la'  // Debugging step
             }
         }
-
-        
        
         stage('2. Sonarqube Analysis') 
         {
