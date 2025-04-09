@@ -53,3 +53,6 @@ node_modules/
 **/.terraform/**
 *.tfstate
 *.tfstate.*
+
+
+echo "node_modules/" >> .gitignore
