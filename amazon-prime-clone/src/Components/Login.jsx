@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';     //error correction
 import { setIsAuth } from '../Redux/action';
 import React from 'react';
 import logo from './Images/signinLogo.jpg';
-// import { useRef } from 'react';  //error correction
-// import { Link, useNavigate } from "react-router-dom";  //error correction
+import { useRef } from 'react';  //error correction
+import { Link, useNavigate } from "react-router-dom";  //error correction
 
 export const Login = () => {
     const emailRef = useRef(null);
@@ -11,9 +11,9 @@ export const Login = () => {
     const details = JSON.parse(localStorage.getItem('user-details'));
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const isAuth = useSelector(state => state.isAuth);   //error correction
+    const isAuth = useSelector(state => state.isAuth);   //error correction
 
-    const handleLogin = (e) => {
+    /* const handleLogin = (e) => {
         e.preventDefault();
         const { email, password } = details || {};
         
@@ -25,7 +25,7 @@ export const Login = () => {
             alert("Login failed");
             navigate('/signin');
         }
-    };
+    };  */ //error correction
 
     return (
         <>  
