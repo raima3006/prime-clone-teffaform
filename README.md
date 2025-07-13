@@ -58,8 +58,10 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 ---
 
 ## ⚙️ Prerequisites
-✅ AWS Free Tier Account
+- ✅ AWS Free Tier Account
+
 ✅ AWS CLI configured on your local machine
+
 ✅ EC2 key-pair (.pem file)
 ✅ Terraform installed
 ✅ Docker & Jenkins installed locally or on EC2
