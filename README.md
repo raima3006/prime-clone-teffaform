@@ -54,7 +54,7 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 ├── .gitignore
 ├── README.md
 └── ...
-
+```
 ---
 
 ## ⚙️ Prerequisites
