@@ -72,22 +72,22 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 git clone https://github.com/raima3006/amazon-prime-devops.git
 cd amazon-prime-devops
 
-2. Configure AWS & Terraform
-Create an IAM user with Admin access
-Generate access_key and secret_key
-Run:
-aws configure
+### 2. Configure AWS & Terraform
+- Create an IAM user with Admin access
+- Generate access_key and secret_key
+- Run:
+  - aws configure
 
-3. Provision Infrastructure
-cd terraform/
-terraform init
-terraform apply -auto-approve
+### 3. Provision Infrastructure
+- cd terraform/
+- terraform init
+- terraform apply -auto-approve
 
-4. Access Jenkins
-Use the public IP from the output to log into Jenkins
-Configure credentials and plugins as per documentation
+### 4. Access Jenkins
+- Use the public IP from the output to log into Jenkins
+- Configure credentials and plugins as per documentation
 
-5. Run CI/CD Pipelines
+### 5. Run CI/CD Pipelines
 - Use provided scripted pipelines under pipeline-scripts/
 - Trigger build jobs from Jenkins GUI
 
