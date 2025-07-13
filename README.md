@@ -88,8 +88,8 @@ Use the public IP from the output to log into Jenkins
 Configure credentials and plugins as per documentation
 
 5. Run CI/CD Pipelines
-Use provided scripted pipelines under pipeline-scripts/
-Trigger build jobs from Jenkins GUI
+- Use provided scripted pipelines under pipeline-scripts/
+- Trigger build jobs from Jenkins GUI
 
 
 
