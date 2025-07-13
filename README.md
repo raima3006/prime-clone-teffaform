@@ -45,7 +45,7 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 
 
 ---
-
+```bash
 ## 📂 Repository Structure
 ├── terraform/              # EC2 + Jenkins + Security Group provisioning
 ├── kubernetes/             # Deployment and service YAMLs
@@ -56,7 +56,7 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 └── ...
 
 ---
-```bash
+
 ## ⚙️ Prerequisites
 ✅ AWS Free Tier Account
 
