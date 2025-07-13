@@ -56,7 +56,7 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 └── ...
 
 ---
-
+```bash
 ## ⚙️ Prerequisites
 ✅ AWS Free Tier Account
 
