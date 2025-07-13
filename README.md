@@ -25,7 +25,9 @@ Welcome to the **Amazon Prime Video Clone** repository! This project is a hands-
 
 GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build → AWS ECR → ArgoCD → EKS → Prometheus/Grafana
 
-🔨 Tools & Technologies
+---
+
+## 🔨 Tools & Technologies
 | Tool           | Purpose                                |
 | -------------- | -------------------------------------- |
 | **GitHub**     | Source code version control            |
@@ -42,7 +44,9 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 | **Grafana**    | Visual dashboards for monitoring data  |
 
 
-📂 Repository Structure
+---
+
+## 📂 Repository Structure
 ├── terraform/              # EC2 + Jenkins + Security Group provisioning
 ├── kubernetes/             # Deployment and service YAMLs
 ├── pipeline-scripts/       # Jenkins scripted pipelines
@@ -51,9 +55,9 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 ├── README.md
 └── ...
 
+---
 
-
-⚙️ Prerequisites
+## ⚙️ Prerequisites
 ✅ AWS Free Tier Account
 ✅ AWS CLI configured on your local machine
 ✅ EC2 key-pair (.pem file)
@@ -61,8 +65,9 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 ✅ Docker & Jenkins installed locally or on EC2
 ✅ VS Code or any code editor
 
+---
 
-🚀 Getting Started
+## 🚀 Getting Started
 1. Clone the repo
 git clone https://github.com/raima3006/amazon-prime-devops.git
 cd amazon-prime-devops
