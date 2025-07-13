@@ -68,9 +68,9 @@ GitHub → Jenkins → SonarQube → NPM Build → Trivy Scan → Docker Build �
 ---
 
 ## 🚀 Getting Started
-1. Clone the repo
-git clone https://github.com/raima3006/amazon-prime-devops.git
-cd amazon-prime-devops
+### 1. Clone the repo
+- git clone https://github.com/raima3006/amazon-prime-devops.git
+- cd amazon-prime-devops
 
 ### 2. Configure AWS & Terraform
 - Create an IAM user with Admin access
